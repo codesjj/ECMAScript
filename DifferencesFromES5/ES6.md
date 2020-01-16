@@ -2,7 +2,7 @@
 ***
 ECMAScript5에서 ECMAScript6로 업데이트되면서 달라진 점은 무엇인가에 대해서 알아보려고 합니다.
 
-## ES5 / ES6 비교 test
+## ES5 / ES6 비교
     
 # 추가 및 바뀐점 
 
