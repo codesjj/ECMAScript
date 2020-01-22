@@ -1,14 +1,13 @@
 # ECMAScript
 
-1. var를 사용하면 안되는 이유.
+### 1. var를 사용하면 안되는 이유.
 
 다른 개발자가 같은 변수명을 의도치 않게 중복해서 사용할 수 있기 때문에 큰 어플리케이션을 만들거나 협업을 할 경우 문제가 생길 수 있다(중복된 var 변수는 나중에 선언된 것으로 덮어쓰게 됨).
 
 
-2. Arrow Function 사용법, this에 변화
-
-● Arrow Function
+### 2. Arrow Function 사용법, this에 변화
 ```
+*Arrow Function
 //함수 표현식
 function(){}
 
@@ -26,12 +25,12 @@ const jelly = (i)=>{
     return i*2;
 }
 console.log(jelly(5)); //10
-```
-● this
+
+*this
 화살표 함수는 this를 정의하지 않음.
 함수의 내부함수에 사용되는 this는 window.
-
-3. Default parameter values
+```
+### 3. Default parameter values
 ```
 function multiply(a, b){
     return a*b;
@@ -62,12 +61,12 @@ multiply(5, 2); //10
 multiply(5); //5
 multiply(5, undefined); //5
 ```
-4. Template Literals
+### 4. Template Literals
 
 내장된 표현식을 허용하는 문자열 리터럴.
 따옴표 대신 백틱(`)으로 감싸줌.
 ```
-● 표현식 삽입법 - $와 {} 사용
+*표현식 삽입법 - $와 {} 사용
 var a = 10,
     b = 20,
     c = "퇴근",
