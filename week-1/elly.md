@@ -8,15 +8,15 @@
 2. Arrow Function 사용법, this에 변화
 
 ● Arrow Function<br>
-//함수 표현식
-function(){}
+//함수 표현식<br>
+function(){}<br>
 
 ex)
 var jelly = function(i){
     return i*2;
 }
 console.log(jelly(5)); //10
-
+```
 //화살표 함수 표현식
 ()=>{}
 
@@ -25,7 +25,7 @@ const jelly = (i)=>{
     return i*2;
 }
 console.log(jelly(5)); //10
-
+```
 ● this
 화살표 함수는 this를 정의하지 않음.
 함수의 내부함수에 사용되는 this는 window.
