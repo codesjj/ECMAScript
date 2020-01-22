@@ -11,9 +11,20 @@
 //함수 표현식
 function(){}
 
+ex)
+var jelly = function(i){
+    return i*2;
+}
+console.log(jelly(5)); //10
+
 //화살표 함수 표현식
 ()=>{}
 
+ex)
+const jelly = (i)=>{
+    return i*2;
+}
+console.log(jelly(5)); //10
 
 ● this
 화살표 함수는 this를 정의하지 않음.
@@ -52,3 +63,24 @@ multiply(5, undefined); //5
 
 4. Template Literals
 
+내장된 표현식을 허용하는 문자열 리터럴.
+따옴표 대신 백틱(`)으로 감싸줌.
+
+● 표현식 삽입법 - $와 {} 사용
+var a = 10,
+    b = 20,
+    c = "퇴근",
+    str = "저는"+(a+b)+"살이고"+c+"을 좋아합니다.";
+console.log(str); //저는 30살이고 퇴근을 좋아합니다.
+
+ES5에선 이렇게 썼는데
+
+let a = 10,
+    b = 20,
+    c = "퇴근",
+    str = `저는 ${a+b}살이고 ${c}을 좋아합니다.`;
+console.log(str); //저는 30살이고 퇴근을 좋아합니다.
+
+ES6에선 이렇게 훨씬 간결!
+
+*MDN: https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Template_literals
