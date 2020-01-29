@@ -75,9 +75,9 @@ const pepper = class pepper{
         console.log(`my name is ${this.name}`);
     }
 }
-```
-이름을 가질 수도 있고
-```js
+
+이름을 가질 수도 있고,
+
 const pepper = class{
     constructor(name){
         this.name=name;
@@ -87,14 +87,20 @@ const pepper = class{
         console.log(`my name is ${this.name}`);
     }
 }
-```
+
 이름을 갖지 않을 수도 있음.
+```
 
 ### 3. Class set, get
 ```js
 *set(setter) - 어떤 프로퍼티에 **접근할 때마다** 프로퍼티를 조작하는 행위가 필요할 때 사용.
 
 *get(getter) - 어떤 프로퍼티에 **값을 할당할 때마다** 프로퍼티를 조작하는 행위가 필요할 때 사용.
+
+실제 데이터에 직접 접근하지 않고 정의된 오퍼레이션을 통해서만 접근함(캡슐화의 이점인 정보 은닉).
+get, set을 통해 접근함으로써 변수 보호.
 ```
 
-*set, get 참조링크: http://guswnsxodlf.github.io/javascript-class-and-prototype-1
+*set, get 참조링크<br>
+http://guswnsxodlf.github.io/javascript-class-and-prototype-1<br>
+https://mygumi.tistory.com/161
