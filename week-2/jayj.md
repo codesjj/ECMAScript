@@ -282,6 +282,6 @@ bC.Fn();
 ```
 
 ## 참고
-<a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes">https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes</a>
-<a href="https://beomy.tistory.com/14">https://beomy.tistory.com/14</a>
+<a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes">https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes</a><br>
+<a href="https://beomy.tistory.com/14">https://beomy.tistory.com/14</a><br>
 <a href="https://beomy.tistory.com/15">https://beomy.tistory.com/15</a>
