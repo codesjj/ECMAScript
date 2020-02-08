@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>ES6 Class Tab Set</title>
+<style>
+*{padding:0;margin:0}
+.js_tab{width:700px;margin:20px auto 0;font-size:15px;font-weight:400;color:#111}
+.js_tab .js_tabBtn{width:100%;border-top:1px solid #ccc;border-bottom:1px solid #ccc;overflow:hidden}
+.js_tab .js_tabBtn .btnLink{float:left;display:block;width:calc(100% / 3);line-height:40px;cursor:pointer;border-right:1px solid #ccc;box-sizing:border-box;text-align:center}
+.js_tab .js_tabBtn .btnLink:first-child{border-left:1px solid #ccc}
+.js_tab .js_tabBtn .btnLink.on{font-weight:700;color:blue;}
+.js_tab .js_tabCon{display:none;height:150px;border:1px solid #ccc;margin-top:20px;padding:20px 15px;box-sizing:border-box}
+.js_tab .js_tabCon.on{display:block}
+</style>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="js_tab" id="js_tab">
+    <div class="js_tabBtn">
+        <a data-type="t1" class="btnLink on">탭메뉴1</a>
+        <a data-type="t2" class="btnLink">탭메뉴2</a>
+        <a data-type="t3" class="btnLink">탭메뉴3</a>
+    </div>
+    
+    <div id="t1" class="js_tabCon on active">
+        탭 내용1
+    </div>
+    <div id="t2" class="js_tabCon">
+        탭 내용2
+    </div>
+    <div id="t3" class="js_tabCon">
+        탭 내용3
+    </div>
+</div>
+
+<div class="js_tab" id="js_tab">
+    <div class="js_tabBtn">
+        <a data-type="t4" class="btnLink on">탭메뉴4</a>
+        <a data-type="t5" class="btnLink">탭메뉴5</a>
+        <a data-type="t6" class="btnLink">탭메뉴6</a>
+    </div>
+    
+    <div id="t4" class="js_tabCon on active">
+        탭 내용4
+    </div>
+    <div id="t5" class="js_tabCon">
+        탭 내용5
+    </div>
+    <div id="t6" class="js_tabCon">
+        탭 내용6
+    </div>
+</div>
+
+<script>
+
+class Tabset{
+    constructor(name){
+        this.name = name;
+    }
+
+    tabFn(){
+        let btnLink = $(".btnLink");
+
+        btnLink.on("click", function(){
+            let btnId = $(this).attr("data-type"),
+            jsTabCon = $("#" + btnId);
+            
+            console.log(`왜 안담김..? ${this.name}`);
+
+            $(this).addClass("on").siblings().removeClass("on");
+            jsTabCon.addClass("on").siblings().removeClass("on");
+        });
+    }
+}
+
+const tab = new Tabset("치킨..");
+
+tab.tabFn();
+
+</script>
+
+</body>
+</html>
