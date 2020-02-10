@@ -23,7 +23,7 @@ button{border:0;padding:0;margin:0;background:none}
         <button type="button">탭메뉴2</button>
         <button type="button">탭메뉴3</button>
     </div>
-    
+
     <div class="js_tabCon on">
         탭 내용1
     </div>
@@ -42,7 +42,7 @@ button{border:0;padding:0;margin:0;background:none}
         <button type="button">탭메뉴6</button>
         <button type="button">탭메뉴7</button>
     </div>
-    
+
     <div class="js_tabCon on">
         탭 내용4
     </div>
@@ -60,18 +60,17 @@ button{border:0;padding:0;margin:0;background:none}
 <script>
 
 class Tabset{
-    constructor(name){
-        this.name = name;
+    constructor(){
+        this.tabBtn = $(".js_tabBtn>button");
     }
 
     tabFn(){
-        let tabBtn = $(".js_tabBtn>button");
-
-        tabBtn.on("click", function(){
+        this.tabBtn.on("click", function(){
             let target = $(this),
                 $btn = target.parent(".js_tabBtn").children(),
                 $btnIdx = target.parent(".js_tabBtn").children().index(this),
                 $conIdx = target.parents(".js_tab").children(".js_tabCon");
+
             // console.log($btnIdx);
             // console.log($conIdx);
 
