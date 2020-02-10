@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width; initial-scale=1.0">
+<title>J</title>
+<style>
+    *{padding:0;margin:0;}
+    body{padding:50px}
+    ul, li{list-style: none}
+    button{display:block;border:0;background:none;color:initial;width:100px;height:40px}
+    .js_tabBtn{border:1px solid #000}
+    .css_tab .js_tabBtn{display:inline-block;*zoom:1}
+    .css_tab .js_tabBtn:after{content:"";display:block;clear:both}
+    .css_tab .js_tabBtn li{float:left;border-right:1px solid #000}
+    .css_tab .js_tabBtn li:last-child{border-right:0}
+    .css_tab .js_tabBtn li button{background:#ccc;font-size:14px;color:#999}
+    .css_tab .js_tabBtn li.on button{background:#000;font-weight:700;color:#fff}
+    .css_tab .js_tabCon{display:none;border:1px solid #000;text-align: center;line-height:250px;}
+    .css_tab .js_tabCon.on{display:block}
+</style>
+<script>
+    class tabMoule{
+        constructor(target){
+            this.target = document.querySelector(target);
+            this.btn = this.target.querySelectorAll('.js_tabBtn li button');
+            this.con = this.target.querySelectorAll('.js_tabCon');
+            this.currentBtn = this.target.querySelector('.js_tabBtn li.on');
+            this.currentCon = this.target.querySelector('.js_tabCon.on');
+        }
+
+        mount(){
+            const self = this;
+            this.btn.forEach((element, index) => {
+                element.addEventListener("click", function(){
+                   self.clickEvent(this, index);
+                });
+            });
+
+        }
+
+        clickEvent(target, index){
+            //console.log('click event');
+            this.hideEvent();
+            this.currentBtn = target.parentNode;
+            this.currentCon = this.con[index];
+            this.showEvent()
+        }
+
+        hideEvent(){
+            //console.log('hide event');
+            this.currentBtn.classList.remove("on");
+            this.currentCon.classList.remove("on");
+        }
+
+        showEvent(){
+            //console.log('show event');
+            this.currentBtn.classList.add("on");
+            this.currentCon.classList.add("on");
+        }
+    }
+</script>
+</head>
+<body>
+    <div class="css_tab js_tab1">
+        <ul class="js_tabBtn">
+            <li class="on"><button type="button">1</button></li>
+            <li><button type="button">2</button></li>
+            <li><button type="button">3</button></li>
+        </ul>
+        <div class="js_tabCon on" style="background:green">1</div>
+        <div class="js_tabCon" style="background:red">2</div>
+        <div class="js_tabCon" style="background:blue">3</div>
+    </div>
+    <br><br>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="css_tab js_tab2">
+        <ul class="js_tabBtn">
+            <li class="on"><button type="button">1</button></li>
+            <li><button type="button">2</button></li>
+            <li><button type="button">3</button></li>
+            <li><button type="button">4</button></li>
+            <li><button type="button">5</button></li>
+        </ul>
+        <div class="js_tabCon on" style="background:yellow">1</div>
+        <div class="js_tabCon" style="background:gray">2</div>
+        <div class="js_tabCon" style="background:black;color:#fff">3</div>
+        <div class="js_tabCon" style="background:purple">4</div>
+        <div class="js_tabCon" style="background:skyblue">5</div>
+    </div>
+    <script>
+        new tabMoule('.js_tab1').mount();
+        new tabMoule('.js_tab2').mount();
+    </script>
+</body>
+</html>
