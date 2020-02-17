@@ -87,8 +87,8 @@
 
 ### 3. 모듈 - import
 
--모듈에서 공개(export)한 대상을 로드하려면 import 키워드를 사용한다.
--모듈이 export한 식별자로 import하며 **ES6 모듈의 파일 확장자를 생략할 수 없다.**
+- 모듈에서 공개(export)한 대상을 로드하려면 import 키워드를 사용한다.
+- 모듈이 export한 식별자로 import하며 **ES6 모듈의 파일 확장자를 생략할 수 없다.**
 
 <pre>
     // app.mjs
