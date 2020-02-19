@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>jquery Todo App</title>
+    </head>
+    <style>
+        *{padding:0;margin:0}
+        body{padding:20px}
+        ul{list-style:none}
+        button{width:120px;background:none;border:0}
+        button span{position:relative;display:block}
+        
+        .todo_app{width:320px;margin:0 auto}
+        .todo_app .todo_head{padding:5px;background:#bae634;border-bottom:1px solid #147814}
+        .todo_app .todo_head input{height:30px;line-height:30px;width:255px}
+        .todo_app .todo_head button{width:50px;text-align:center;font-weight:400}
+        .todo_app .todo_list{padding:5px;background:#eee}
+        .todo_app .todo_list li{margin-bottom:5px;background:#fff;overflow:hidden}
+        .todo_app .todo_list li:last-child{margin-bottom:0}
+        .todo_app .todo_list li p{float:left;width:95%;-webkit-width:calc( 100% - 50px );-moz-width:calc( 100% - 50px );width:calc( 100% - 50px );overflow: hidden;word-break: break-all}
+        .todo_app .todo_list li button{float:right;width:50px}
+    </style>
+    <body>
+        <div class="todo_app" id="todo_app">
+            <header class="todo_head js_todo_head">
+                <input type="text" value=""><button type="button"><span>ADD</span></button>
+            </header>
+            <ul class="todo_list js_todo_list">
+                
+            </ul>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="todo_app" id="todo_app2">
+            <header class="todo_head js_todo_head">
+                <input type="text" value=""><button type="button"><span>ADD</span></button>
+            </header>
+            <ul class="todo_list js_todo_list">
+                
+            </ul>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>      
+        <script>
+            class todoApp{
+                constructor(target){
+                    this.target = $(target);
+                    this.head = $('.js_todo_head', this.target),
+                    this.list = $('.js_todo_list', this.target),
+                    this.input = $('input', this.head),
+                    this.addBtn = $('button', this.head);
+                }
+
+                mount(){
+                    const self = this;
+                    this.addBtn.on('click', function(){
+                        self.inputCheckEvent();
+                    });
+                }
+
+                inputCheckEvent(){
+                    let txt = this.input.val();
+                    if(txt){
+                        this.input.val('');
+                        this.addEvent(txt);
+                    }
+                }
+
+                addEvent(txt){
+                    let self = this,
+                        todo = $('<li/>'),
+                        todoTxt = $('<p>' + txt + '</p>'),
+                        todoDel = $('<button type="button">delete</button>');
+
+                    todo
+                        .append(todoTxt)
+                        .append(todoDel);
+
+                    this.list.append(todo);
+
+                    todoDel.on('click', function(){
+                        self.todoDelEvent($(this).parent());
+                    });
+                }
+
+                todoDelEvent(delTarget){
+                    delTarget.remove();
+                }
+            }
+
+            new todoApp('#todo_app').mount();
+            new todoApp('#todo_app2').mount();
+        </script>
+    </body>
+</html>
