@@ -43,7 +43,7 @@
         clickEvent(target, index){
             //console.log('click event');
             this.hideEvent();
-            this.currentBtn = target.parentNode;
+            this.currentBtn = this.btn[index];
             this.currentCon = this.con[index];
             this.showEvent()
         }
@@ -74,12 +74,6 @@
         <div class="js_tabCon" style="background:blue">3</div>
     </div>
     <br><br>
-    <br>
-    <br>
-    <hr>
-    <br>
-    <br>
-    <br>
     <br>
     <div class="css_tab js_tab2">
         <ul class="js_tabBtn">
