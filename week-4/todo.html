@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CH</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+
+<div class="js_todo js_todo1">
+    <div class="js_text">
+        <input type="text" placeholder="투 두 리스트">
+        <button type="button">클릭</button>
+    </div>
+    <div class="js_list">
+        <ul>
+        </ul>
+    </div>
+</div>
+
+<div class="js_todo js_todo2">
+    <div class="js_text">
+        <input type="text" placeholder="투 두 리스트">
+        <button type="button">클릭</button>
+    </div>
+    <div class="js_list">
+        <ul>
+        </ul>
+    </div>
+</div>
+
+
+<script>
+    class toDo {
+        constructor(target){
+                this.toDoWrap = document.querySelector(target);
+                this.txtWrap = this.toDoWrap.querySelector(".js_text");
+                this.todoInput = this.txtWrap.querySelector("input");
+                this.btn = this.txtWrap.querySelector("button");
+                this.ulWrap = this.toDoWrap.querySelector(".js_list");
+                this.ul = this.ulWrap.querySelector("ul");
+        }
+    
+        init (){
+            const that = this;
+            this.btn.addEventListener("click" , function(){
+                let currentValue = that.todoInput.value;
+                that.current(currentValue);
+                that.todoInput.value = ""; 
+                // console.log(currentValue);
+            });
+        }
+
+        delBtn (event){
+            const targetting = event.target;
+            const pre = targetting.parentNode;
+            pre.remove();
+        }
+        
+        current (text){
+            this.li = document.createElement("li");
+            this.span = document.createElement("span");
+            this.del = document.createElement("button");
+            this.span.innerHTML = text;
+            this.del.innerHTML = "x";
+            this.li.appendChild(this.span);
+            this.li.appendChild(this.del);
+            this.ul.appendChild(this.li);
+            this.del.addEventListener("click" , this.delBtn);
+        }
+        
+
+    }        
+
+    
+    
+    new toDo(".js_todo1").init();
+    new toDo(".js_todo2").init();
+    
+    
+            
+// const toDoWrap = document.querySelector(".js_todo"),
+//     txtWrap = toDoWrap.querySelector(".js_text"),
+//     input = txtWrap.querySelector("input"),
+//     btn = txtWrap.querySelector("button");
+//
+//     function init(){        
+//         btn.addEventListener("click" , function(){
+//             toDoClick();
+//         });
+//     };
+//
+//     function toDoClick() {
+//         // event.preventDefault();
+//         let currentValue = input.value;
+//         paintToDo(currentValue);
+//     };
+//
+//     function paintToDo(text) {
+//         console.log(text);
+//     };
+</script>
+</body>
+</html>
