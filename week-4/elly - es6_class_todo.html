@@ -5,8 +5,8 @@
 *{padding:0;margin:0}
 ul, dl, ol, li{list-style:none}
 body{background:linear-gradient(90deg, rgba(251,216,249,1) 0%, rgba(250,221,231,1) 37%, rgba(253,229,210,1) 100%)}
-#to_do_app{width:320px;height:665px;margin:40px auto 0;padding:92px 25px 0;background:url(images/iphone.png) no-repeat 0 0;background-size:100%;overflow:hidden}
-#to_do_app h1{line-height:60px;background:#4d2a35;font-size:20px;color:#fff;text-align:center}
+.to_do_app{width:320px;height:665px;margin:40px auto 0;padding:92px 25px 0;background:url(images/iphone.png) no-repeat 0 0;background-size:100%;overflow:hidden}
+.to_do_app h1{line-height:60px;background:#4d2a35;font-size:20px;color:#fff;text-align:center}
 .cnt_area{height:472px;padding:20px;overflow-y:auto;background:#fff}
 .tit{font-size:0}
 .ip01{display:inline-block;width:75%;height:35px;line-height:35px;background:#4d2a35;border-radius:5px;padding:0 5px;box-sizing:border-box;border:0;color:#fff}
@@ -17,18 +17,17 @@ button.btn_delt{display:inline-block;vertical-align:top;border-radius:5px;font-s
 .list:after{content:"";display:block;clear:both}
 .list .add_item{height:auto;margin-bottom:10px}
 .list .add_item:first-child{margin-top:20px}
-.list .add_item p{display:inline-block;position:relative;font-size:14px;width:75% ;height:35px;line-height:35px;padding-left:20px;box-sizing:border-box;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;color:#111}
+.list .add_item p{display:inline-block;position:relative;font-size:14px;width:75%;height:35px;line-height:35px;padding-left:20px;box-sizing:border-box;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;color:#111}
 .list .add_item p:after{content:"";position:absolute;top:50%;left:10px;width:4px;height:4px;background:#4d2a35}
 .list .add_item.on p{border-radius:5px;background:#c0e6d0}
-button.btn_all{float:right;display:none;font-size:13px;font-weight:600;color:#fff;text-decoration:none;text-align:center;border-radius:5px;width:23%;margin-left:2%;height:35px;line-height:34px;border:0;background:#4f966f;cursor:pointer}
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<div id="to_do_app">
+<div class="to_do_app" id="todoApp1">
     <h1>To Do App</h1>
-    
+
     <div class="cnt_area">
       <div class="tit">
         <input type="text" id="tit_sub" class="ip01" placeholder=" + 값을 입력하세요." value="">
@@ -37,7 +36,21 @@ button.btn_all{float:right;display:none;font-size:13px;font-weight:600;color:#ff
 
       <div class="list">
 
-        <button type="button" class="btn_all">선택삭제</button>
+      </div>
+    </div>
+</div>
+
+<div class="to_do_app" id="todoApp2">
+    <h1>To Do App</h1>
+
+    <div class="cnt_area">
+      <div class="tit">
+        <input type="text" id="tit_sub" class="ip01" placeholder=" + 값을 입력하세요." value="">
+        <a href="#" class="btn_sbmt">추가</a>
+      </div>
+
+      <div class="list">
+
       </div>
     </div>
 </div>
@@ -45,53 +58,50 @@ button.btn_all{float:right;display:none;font-size:13px;font-weight:600;color:#ff
 <script>
 
 class ToDoList{
-  constructor(){
-    this.btnSbmt = $(".btn_sbmt"); //추가버튼
-    this.btnDelt = $(".btn_delt"); //삭제버튼
+  constructor(target){
+    this.target = $(target);
+    this.btnSbmt = $(target).find(".btn_sbmt"); //추가버튼
+    this.titSub = $(target).find("#tit_sub");
+    this.list = $(target).find(".list");
   }
 
   mount(){
-    //추가
-    this.btnSbmt.on("click", function(){
-      let $list = $(".list"),
-          $titSub = $("#tit_sub"),
-          $titSubVal = $titSub.val();
-      
-      if($titSubVal != ""){
-        let $addItem = $("<div class='add_item'><p>" + $titSubVal + "</p></div>" );
-        let $btnDelt = $("<button type='button' class='btn_delt'>삭제</button>");
-        
-        $list.prepend($addItem);
-        $addItem.append($btnDelt);
-        console.log("할 일이 추가되었습니다.");
-      }else{
-        alert("값을 입력해주세요!");
-        console.log("할 일 추가에 실패하였습니다.");
-      }
-      
-      $titSub.val("");
-    });
+    let _this = this;
 
-    this.btnDeltFn();
+    this.btnSbmt.on("click", function(e){
+      e.preventDefault();
+      let _titSubVal = _this.titSub.val();
+
+      if(_titSubVal != ""){
+        console.log("값을 입력하였습니다.");
+
+        _this.btnAddFn(_titSubVal); //추가
+        _this.btnDeltFn(); //삭제
+
+      }else{
+        alert("값을 입력해주세요.");
+      }
+
+      _this.titSub.val(""); //인풋 초기화
+    });
+  }
+
+  //추가
+  btnAddFn(_titSubVal){
+    this.list.append("<div class='add_item'><p>"+_titSubVal+"</p><button type='button' class='btn_delt'>삭제</button></div>");
   }
 
   //삭제
   btnDeltFn(){
-    this.btnDelt.on("click", function(){
-      // $(this).closest(".add_item").remove();
-
-      // if($(".add_item").hasClass("on") === false){
-      //   console.log("dd");
-      //   $(".btn_all").hide();
-      // }
-      alert("얍");
+    $(".btn_delt").on("click", function(){
+      $(this).closest(".add_item").remove();
     });
   }
 }
 
-const todo = new ToDoList();
+new ToDoList("#todoApp1").mount();
+new ToDoList("#todoApp2").mount();
 
-todo.mount();
 </script>
 
 </body>
