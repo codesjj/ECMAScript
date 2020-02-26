@@ -20,7 +20,7 @@ button.btn_delt{display:inline-block;vertical-align:top;border-radius:5px;font-s
 .list>li:first-child{margin-top:20px}
 .list>li p{display:inline-block;position:relative;font-size:14px;width:75%;height:35px;line-height:35px;padding-left:20px;box-sizing:border-box;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;color:#111}
 .list>li p:after{content:"";position:absolute;top:50%;left:10px;width:4px;height:4px;background:#4d2a35}
-.list>li.on p{border-radius:5px;background:#c0e6d0}
+.list>li.on p{border-radius:5px;background:#eee}
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 </head>
@@ -93,13 +93,22 @@ class ToDoList{
         _li = $("<li />"),
         _p = $("<p>" + _titSubVal + "</p>"),
         btnDelt = $("<button type='button' class='btn_delt'>삭제</button>");
-
+    
     _li.append(_p).append(btnDelt);
     this.list.append(_li);
     
+    // localStorage.loginId = value;
+    // localStorage.setItem("key", value);
+
     btnDelt.on("click", function(){
-      _this.btnDeltFn($(this).closest(".add_item"));
+      _this.btnDeltFn($(this).closest("li"));
       console.log("야호");
+    });
+
+    let item = this.list.find("li");
+
+    item.on("click", function(){
+      $(this).toggleClass("on");
     });
   }
 
