@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>jquery Todo App</title>
+    </head>
+    <style>
+        *{padding:0;margin:0}
+        body{padding:20px}
+        ul{list-style:none}
+        button{width:120px;background:none;border:0}
+        button span{position:relative;display:block}
+        
+        .todo_app{width:320px;margin:0 auto}
+        .todo_app .todo_head{padding:5px;background:#bae634;border-bottom:1px solid #147814}
+        .todo_app .todo_head input{height:30px;line-height:30px;width:255px}
+        .todo_app .todo_head .add_btn{width:50px;text-align:center;font-weight:400}
+        .todo_app .todo_head .select_del{border:1px solid #000;background:#ff00ff;color:#fff}
+        .todo_app .todo_list{padding:5px;background:#eee}
+        .todo_app .todo_list li{margin-bottom:5px;background:#fff;overflow:hidden}
+        .todo_app .todo_list li:last-child{margin-bottom:0}
+        .todo_app .todo_list li label{position:relative;float:left;width:95%;-webkit-width:calc( 100% - 50px );-moz-width:calc( 100% - 50px );width:calc( 100% - 50px );overflow: hidden;word-break: break-all}
+        .todo_app .todo_list li label input{position:absolute;top:-1px;right:-1px;margin:-1px -1px 0 0;width:0;height:0;opacity:0}
+        .todo_app .todo_list li button{float:right;width:50px}
+        .todo_app .todo_list li label,
+        .todo_app .todo_list li button{font-size:13px;line-height:1.5}
+        .todo_app .todo_list li label.on,
+        .todo_app .todo_list li label.on + button{background:#ff00ff;color:#fff;font-weight:700}
+    </style>
+    <body>
+        <div class="todo_app" id="todo_app1">
+            <header class="todo_head js_todo_head">
+                <input type="text" value=""><button type="button" class="add_btn js_add"><span>ADD</span></button><br>
+                <button type="button" class="select_del js_select_del"><span>select Delect</span></button>
+            </header>
+            <ul class="todo_list js_todo_list">
+            </ul>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="todo_app" id="todo_app2">
+            <header class="todo_head js_todo_head">
+                <input type="text" value=""><button type="button" class="add_btn js_add"><span>ADD</span></button><br>
+                <button type="button" class="select_del js_select_del"><span>select Delect</span></button>
+            </header>
+            <ul class="todo_list js_todo_list">
+            </ul>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>      
+        <script>
+            class todoApp{
+                constructor(target){
+                    this.target = target;
+                    this.$target = $('#' + target);
+                    this.head = $('.js_todo_head', this.$target);
+                    this.list = $('.js_todo_list', this.$target);
+                    this.input = $('input', this.head);
+                    this.addBtn = $('.js_add', this.head);
+                    this.selectDel = $('.js_select_del', this.head);
+                    this.myItem = [];
+                }
+
+                mount(){
+                    const self = this;
+                    this.addBtn.on('click', function(){
+                        self.inputCheckEvent();
+                    });
+
+                    this.selectDel.on('click', function(){
+                        self.todoSelDelEvent();
+                    });
+
+                    // 저장된 요소 호출
+                    let saveItem = localStorage.getItem(this.target);
+                    if(saveItem != null){
+                        saveItem = saveItem.split(',');
+                        console.log(saveItem);
+                        // 저장된 요소 초기화
+                        localStorage.removeItem(this.target);
+                        // 저장된 요소 재저장 및 출력
+                        saveItem.forEach(element => {
+                            console.log(element);
+                            self.addEvent($(element));
+                        });
+                    }
+                }
+
+                inputCheckEvent(){
+                    let txt = this.input.val();
+                    if(txt){
+                        this.input.val('');
+                        this.createEvent(txt);
+                    }
+                }
+
+                createEvent(txt){
+                    let todo = $('<li/>'),
+                        todoTxt = $('<label><input type="checkbox">' + txt + '</label>'),
+                        todoDel = $('<button type="button">delete</button>');
+
+                    todo.append(todoTxt).append(todoDel);
+                    this.addEvent(todo);
+                }
+
+                addEvent(todo){
+                    let self = this;
+
+                    this.list.append(todo);
+
+                    todo.find('label input').on('change', function(){
+                        if($(this).prop("checked")){
+                            $(this).parent().addClass('on');
+                        }else{
+                            $(this).parent().removeClass('on');
+                        }
+                    });
+
+                    todo.find('button').on('click', function(){
+                        self.todoDelEvent($(this).parent());
+                    });
+
+                    this.saveMyItem();
+                }
+
+                todoDelEvent(delTarget){
+                    delTarget.remove();
+
+                    this.saveMyItem();
+                }
+
+                todoSelDelEvent(){
+                    let list = this.list.find('li');
+
+                    list.each(function(){
+                        if($(this).find('input').prop("checked") == true){
+                            $(this).remove();
+                        }
+                    });
+
+                    this.saveMyItem();
+                }
+
+                saveMyItem(){
+                    const _self = this;
+                    let list = this.list.find('li');
+                    this.myItem = [];
+
+                    list.each(function(idx){
+                        _self.myItem[idx] = this.outerHTML;
+                    });
+
+                    console.log(this.myItem);
+                    localStorage.setItem(this.target, this.myItem);
+                }
+            }
+
+            new todoApp('todo_app1').mount();
+            new todoApp('todo_app2').mount();
+        </script>
+    </body>
+</html>
