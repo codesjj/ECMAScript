@@ -1,92 +1,139 @@
 <html>
+
 <head>
-<title>ES6 Class Tab Set</title>
-<style>
-*{padding:0;margin:0}
-button{border:0;padding:0;margin:0;background:none}
-.js_tab{width:700px;margin:20px auto 0;font-size:15px;font-weight:400;color:#111}
-.js_tab .js_tabBtn{width:100%;border-top:1px solid #ccc;border-bottom:1px solid #ccc;overflow:hidden}
-.js_tab .js_tabBtn button{float:left;width:calc(100% / 3);line-height:40px;border-right:1px solid #ccc;box-sizing:border-box;text-align:center}
-.js_tab.col4 .js_tabBtn button{width:calc(100% / 4)}
-.js_tab .js_tabBtn button:first-child{border-left:1px solid #ccc}
-.js_tab .js_tabBtn button.on{font-weight:700;color:blue;}
-.js_tab .js_tabCon{display:none;height:150px;border:1px solid #ccc;margin-top:20px;padding:20px 15px;box-sizing:border-box}
-.js_tab .js_tabCon.on{display:block}
-</style>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <title>ES6 Class Tab Set</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        button {
+            border: 0;
+            padding: 0;
+            margin: 0;
+            background: none
+        }
+
+        .js_tab {
+            width: 700px;
+            margin: 20px auto 0;
+            font-size: 15px;
+            font-weight: 400;
+            color: #111
+        }
+
+        .js_tab .js_tabBtn {
+            width: 100%;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            overflow: hidden
+        }
+
+        .js_tab .js_tabBtn button {
+            float: left;
+            width: calc(100% / 3);
+            line-height: 40px;
+            border-right: 1px solid #ccc;
+            box-sizing: border-box;
+            text-align: center
+        }
+
+        .js_tab.col4 .js_tabBtn button {
+            width: calc(100% / 4)
+        }
+
+        .js_tab .js_tabBtn button:first-child {
+            border-left: 1px solid #ccc
+        }
+
+        .js_tab .js_tabBtn button.on {
+            font-weight: 700;
+            color: blue;
+        }
+
+        .js_tab .js_tabCon {
+            display: none;
+            height: 150px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            padding: 20px 15px;
+            box-sizing: border-box
+        }
+
+        .js_tab .js_tabCon.on {
+            display: block
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 </head>
+
 <body>
-
-<div class="js_tab" id="js_tab">
-    <div class="js_tabBtn">
-        <button type="button" class="on">탭메뉴1</button>
-        <button type="button">탭메뉴2</button>
-        <button type="button">탭메뉴3</button>
+    <div class="js_tab" id="js_tab">
+        <div class="js_tabBtn">
+            <button type="button" class="on">탭메뉴1</button>
+            <button type="button">탭메뉴2</button>
+            <button type="button">탭메뉴3</button>
+        </div>
+        <div class="js_tabCon on">
+            탭 내용1
+        </div>
+        <div class="js_tabCon">
+            탭 내용2
+        </div>
+        <div class="js_tabCon">
+            탭 내용3
+        </div>
     </div>
-
-    <div class="js_tabCon on">
-        탭 내용1
+    <div class="js_tab col4" id="js_tab">
+        <div class="js_tabBtn">
+            <button type="button" class="on">탭메뉴4</button>
+            <button type="button">탭메뉴5</button>
+            <button type="button">탭메뉴6</button>
+            <button type="button">탭메뉴7</button>
+        </div>
+        <div class="js_tabCon on">
+            탭 내용4
+        </div>
+        <div class="js_tabCon">
+            탭 내용5
+        </div>
+        <div class="js_tabCon">
+            탭 내용6
+        </div>
+        <div class="js_tabCon">
+            탭 내용7
+        </div>
     </div>
-    <div class="js_tabCon">
-        탭 내용2
-    </div>
-    <div class="js_tabCon">
-        탭 내용3
-    </div>
-</div>
+    <script>
+        class Tabset{
+            constructor(){
+                this.tabBtn = $(".js_tabBtn>button");
+                this.currentIdx = $(".js_tabBtn>button.on").index();
+            }
 
-<div class="js_tab col4" id="js_tab">
-    <div class="js_tabBtn">
-        <button type="button" class="on">탭메뉴4</button>
-        <button type="button">탭메뉴5</button>
-        <button type="button">탭메뉴6</button>
-        <button type="button">탭메뉴7</button>
-    </div>
+            tabFn(){
+                this.tabBtn.on("click", function(){
+                    let target = $(this),
+                        $btn = target.parent(".js_tabBtn").children(),
+                        $btnIdx = target.parent(".js_tabBtn").children().index(this),
+                        $conIdx = target.parents(".js_tab").children(".js_tabCon");
+                    // console.log($btnIdx);
+                    // console.log($conIdx);
+                    $btn.eq(currentIdx).removeClass("on");
+                    $conIdx.eq(currentIdx).removeClass("on");
+                    target.addClass("on");
+                    $conIdx.eq($btnIdx).addClass("on");
+                    this.currentIdx = $btnIdx;
+                });
+            }
+        }
 
-    <div class="js_tabCon on">
-        탭 내용4
-    </div>
-    <div class="js_tabCon">
-        탭 내용5
-    </div>
-    <div class="js_tabCon">
-        탭 내용6
-    </div>
-    <div class="js_tabCon">
-        탭 내용7
-    </div>
-</div>
+        const tab = new Tabset();
 
-<script>
-
-class Tabset{
-    constructor(){
-        this.tabBtn = $(".js_tabBtn>button");
-    }
-
-    tabFn(){
-        this.tabBtn.on("click", function(){
-            let target = $(this),
-                $btn = target.parent(".js_tabBtn").children(),
-                $btnIdx = target.parent(".js_tabBtn").children().index(this),
-                $conIdx = target.parents(".js_tab").children(".js_tabCon");
-
-            // console.log($btnIdx);
-            // console.log($conIdx);
-
-            $btn.removeClass("on");
-            target.addClass("on");
-            $conIdx.removeClass("on");
-            $conIdx.eq($btnIdx).addClass("on");
-        });
-    }
-}
-
-const tab = new Tabset();
-
-tab.tabFn();
-
-</script>
-
+        tab.tabFn();
+    </script>
 </body>
+
 </html>
